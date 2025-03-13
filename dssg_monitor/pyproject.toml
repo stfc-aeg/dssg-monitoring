@@ -12,7 +12,8 @@ classifiers = [
 description = "DSSG modular metric exporter to a Prometheus time series database"
 dynamic = ["version"]
 dependencies = [
-    "pyyaml"
+    "pyyaml",
+    "prometheus_client"
 ]
 
 [project.optional-dependencies]
