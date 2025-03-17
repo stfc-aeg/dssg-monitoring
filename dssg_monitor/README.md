@@ -4,4 +4,4 @@ Simple package managed with pyproject.toml to allow for the collection of metric
 
 Installed with pip install .[{collector_name}, {collector_2_name}]
 
-Requires Python 3.12 >=
+Requires Python 3.10 >=

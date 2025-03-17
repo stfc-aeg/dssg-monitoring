@@ -3,11 +3,11 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "DSSG-Monitor"
+name = "dssg-monitor"
 classifiers = [
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: Apache Software License",
-    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.10",
 ]
 description = "DSSG modular metric exporter to a Prometheus time series database"
 dynamic = ["version"]
@@ -20,10 +20,10 @@ dependencies = [
 system_usage = [
     "psutil"
 ]
-temperature = [] # placeholder for future module dependencies
+temperature = [] # placeholder for future collector specific dependencies
 
 [project.scripts]
-dssg-monitor = "dssg_monitor.main:main"
+dssg-monitor = "src.dssg_monitor.main:main"
 
 [tool.setuptools]
-packages = ["dssg_monitor"]
+packages = ["src.dssg_monitor"]
