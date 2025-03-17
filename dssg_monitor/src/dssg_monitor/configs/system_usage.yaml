@@ -1,0 +1,9 @@
+server_ip: '192.168.0.30'
+server_port: 8866
+collectors : ['system_usage']  #arb_name: class_name import this way?
+
+
+# import classes the same way odin_control does using package name
+
+# Set debugging level at config level
+
