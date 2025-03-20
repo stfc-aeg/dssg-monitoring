@@ -20,7 +20,11 @@ dependencies = [
 system_usage = [
     "psutil"
 ]
-temperature = [] # placeholder for future collector specific dependencies
+temperature = [
+    "pathlib",
+    "odin_devices @ git+https://git@github.com/stfc-aeg/odin-devices@1.1.0",
+    "spidev==3.6"
+] 
 
 [project.scripts]
 dssg-monitor = "src.dssg_monitor.main:main"

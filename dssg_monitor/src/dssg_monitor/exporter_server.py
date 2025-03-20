@@ -4,6 +4,7 @@ import yaml
 
 from prometheus_client import start_http_server
 from .collectors.system_usage import SystemUsageCollector
+from .collectors.temperature import BME280TemperatureCollector, DS18B20TemperatureCollector
 
 #Create a dssg-monitor logger, and asign its logging level to debug
 logging.basicConfig(
@@ -38,13 +39,15 @@ class MetricExporter:
 
          # Define supported metric collectors, map collector names to classes
         self.supported_collectors = {
-            "system_usage": SystemUsageCollector
+            "system_usage": SystemUsageCollector(), 
+            "bme280_temperature": BME280TemperatureCollector(),
+            "ds18b20_temperature": DS18B20TemperatureCollector(self.config["ds18b20_names"]) 
         }
 
         # Initialise each collector specified in the config
         for collector in self.collector_list:
             if collector in self.supported_collectors:
-                self.instantiated_collectors.append(self.supported_collectors[collector]())
+                self.instantiated_collectors.append(self.supported_collectors[collector])
                 logging.info(f"Instantiated collector: {collector}")
             else:
                 logging.error(f"Collector: {collector} not recognised")
