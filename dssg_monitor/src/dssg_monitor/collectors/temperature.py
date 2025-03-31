@@ -1,6 +1,4 @@
 from prometheus_client import Gauge
-import logging
-
 
 class DS18B20Reader:
     """Class to read temperature from DS18B20 devices."""
@@ -57,6 +55,7 @@ class DS18B20TemperatureCollector:
 
     def __init__(self, options):
         """Checks connected devices and assigns nicknames from config."""
+        import logging
         from pathlib import Path
 
         self.ds18b20_devices = []
