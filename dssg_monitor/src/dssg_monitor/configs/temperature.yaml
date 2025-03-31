@@ -3,4 +3,4 @@ server_port: 8000
 collectors:
   'temperature.BME280TemperatureCollector':
   'temperature.DS18B20TemperatureCollector':
-    names: []
+    names: ["aircon"]
