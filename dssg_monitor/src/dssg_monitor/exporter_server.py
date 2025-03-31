@@ -53,8 +53,11 @@ class MetricExporter:
 
                 logging.info(f"Instantiated collector: {collector}")
 
-            except (ImportError, AttributeError):
-                print(f"Couldn't import module {module_name}.{class_name}")
+            except (ImportError, AttributeError) as e:
+                logging.error(f"Couldn't import module {module_name}.{class_name} Error: {e}")
+
+            except Exception as e:
+                logging.error(f"Error encountered during collector instantiation: {e}")
 
         # Start the Prometheus HTTP server and metric collection loop
         self.start()

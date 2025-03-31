@@ -1,4 +1,5 @@
 from prometheus_client import Gauge
+import logging
 
 
 class DS18B20Reader:
@@ -62,7 +63,7 @@ class DS18B20TemperatureCollector:
         self.ds18b20_device_paths = list(Path('/sys/bus/w1/devices').glob('28-*'))
 
         try:
-            self.names = options["names"]
+            self.names = options["names"] # exception if this doesnt exist?
 
             for i in range(len(self.ds18b20_device_paths)):
                 path = self.ds18b20_device_paths[i]
@@ -70,11 +71,11 @@ class DS18B20TemperatureCollector:
                 ds18b20_device = DS18B20Reader(path, name)
                 self.ds18b20_devices.append(ds18b20_device)
 
-        except TypeError:
-            print(f"{self} ERROR - collector needs \"names\" option")
+        except TypeError as e:
+            logging.error(f"{self} ERROR ({e}) - collector needs \"names\" option")
 
-        except IndexError:
-            print(f"{self} ERROR - there must be names for each device")
+        except IndexError as e:
+            logging.error(f"{self} ERROR ({e}) - there must be names for each device")
 
     def collect_metrics(self):
         """Collects temperature reading from each device."""
