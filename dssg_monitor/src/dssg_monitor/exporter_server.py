@@ -40,17 +40,21 @@ class MetricExporter:
         for collector in self.collector_list:
             
             # Import module using config info and importlib
-            module_name = "src.dssg_monitor.collectors." + collector.split(".")[0]
-            class_name = collector.split(".")[1]
-            module = importlib.import_module(module_name)
+            try: 
+                module_name = "src.dssg_monitor.collectors." + collector.split(".")[0]
+                class_name = collector.split(".")[1]
+                module = importlib.import_module(module_name)
 
-            collector_module = getattr(module, class_name)
+                collector_module = getattr(module, class_name)
 
-            # Get options from config and pass to module
-            options = self.collector_list[collector]
-            self.instantiated_collectors.append(collector_module(options))
+                # Get options from config and pass to module
+                options = self.collector_list[collector]
+                self.instantiated_collectors.append(collector_module(options))
 
-            logging.info(f"Instantiated collector: {collector}")
+                logging.info(f"Instantiated collector: {collector}")
+
+            except (ImportError, AttributeError):
+                print(f"Couldn't import module {module_name}.{class_name}")
 
         # Start the Prometheus HTTP server and metric collection loop
         self.start()
