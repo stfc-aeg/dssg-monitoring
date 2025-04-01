@@ -27,7 +27,7 @@ temperature = [
 ] 
 
 [project.scripts]
-dssg-monitor = "src.dssg_monitor.main:main"
+dssg-monitor = "dssg_monitor.main:main"
 
-[tool.setuptools]
-packages = ["src.dssg_monitor"]
+[tool.setuptools.packages.find]
+where = ["src"]

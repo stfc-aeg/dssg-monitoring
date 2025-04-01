@@ -62,7 +62,7 @@ class DS18B20TemperatureCollector:
         self.ds18b20_device_paths = list(Path('/sys/bus/w1/devices').glob('28-*'))
 
         try:
-            self.names = options["names"] # exception if this doesnt exist?
+            self.names = options["names"] 
 
             for i in range(len(self.ds18b20_device_paths)):
                 path = self.ds18b20_device_paths[i]

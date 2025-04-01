@@ -41,15 +41,14 @@ class MetricExporter:
             
             # Import module using config info and importlib
             try: 
-                module_name = "src.dssg_monitor.collectors." + collector.split(".")[0]
-                class_name = collector.split(".")[1]
+                module_name, class_name = collector.rsplit('.', 1)
                 module = importlib.import_module(module_name)
 
-                collector_module = getattr(module, class_name)
+                collector_class = getattr(module, class_name)
 
                 # Get options from config and pass to module
                 options = self.collector_list[collector]
-                self.instantiated_collectors.append(collector_module(options))
+                self.instantiated_collectors.append(collector_class(options))
 
                 logging.info(f"Instantiated collector: {collector}")
 
