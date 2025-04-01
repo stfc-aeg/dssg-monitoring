@@ -1,6 +1,5 @@
 from prometheus_client import Gauge
 
-
 class DS18B20Reader:
     """Class to read temperature from DS18B20 devices."""
 
@@ -42,7 +41,7 @@ class BME280Reader:
 class BME280TemperatureCollector:
     """Class to collect temperature reading from BME280 devices."""
 
-    def __init__(self):
+    def __init__(self, options):
         """Creates BMEReader object."""
         self.bme = BME280Reader()
 
@@ -54,20 +53,28 @@ class BME280TemperatureCollector:
 class DS18B20TemperatureCollector:
     """Class to create DS18B20 devices and collect temperature reading."""
 
-    def __init__(self, names):
+    def __init__(self, options):
         """Checks connected devices and assigns nicknames from config."""
+        import logging
         from pathlib import Path
-
-        self.names = names
 
         self.ds18b20_devices = []
         self.ds18b20_device_paths = list(Path('/sys/bus/w1/devices').glob('28-*'))
 
-        for i in range(len(self.ds18b20_device_paths)):
-            path = self.ds18b20_device_paths[i]
-            name = self.names[i]
-            ds18b20_device = DS18B20Reader(path, name)
-            self.ds18b20_devices.append(ds18b20_device)
+        try:
+            self.names = options["names"] 
+
+            for i in range(len(self.ds18b20_device_paths)):
+                path = self.ds18b20_device_paths[i]
+                name = self.names[i]
+                ds18b20_device = DS18B20Reader(path, name)
+                self.ds18b20_devices.append(ds18b20_device)
+
+        except TypeError as e:
+            logging.error(f"{self} ERROR ({e}) - collector needs \"names\" option")
+
+        except IndexError as e:
+            logging.error(f"{self} ERROR ({e}) - there must be names for each device")
 
     def collect_metrics(self):
         """Collects temperature reading from each device."""

@@ -5,7 +5,7 @@ class SystemUsageCollector:
     Class to manage the creation and updating of Prometheus Gauges related to system usage metrics.
     """
 
-    def __init__(self):
+    def __init__(self, options):
         """
         Initialise system usage metric gauges.
         
