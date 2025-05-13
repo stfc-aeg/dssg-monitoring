@@ -24,7 +24,11 @@ temperature = [
     "pathlib",
     "odin_devices @ git+https://git@github.com/stfc-aeg/odin-devices@1.1.0",
     "spidev==3.6"
-] 
+]
+snmp = [
+    "puresnmp",
+    "asyncio"
+]
 
 [project.scripts]
 dssg-monitor = "dssg_monitor.main:main"
