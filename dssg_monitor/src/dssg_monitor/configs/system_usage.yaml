@@ -1,4 +1,4 @@
-server_ip: '192.168.0.30'
+server_ip: '192.168.0.XX'
 server_port: 8866
 collectors: 
   'dssg_monitor.collectors.system_usage.SystemUsageCollector': 
