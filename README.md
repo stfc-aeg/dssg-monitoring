@@ -44,7 +44,7 @@ Successfully installed dssg-monitor-0.0.0
 
 Create a CONFIG_NAME.yaml file in the /configs directory with the following structure:
 
-
+```yaml
 server_ip: 'xxx.xxx.xxx.xxx'
 server_port: xxxx
 collectors:
@@ -52,6 +52,7 @@ collectors:
     OPTION_KEY: OPTION_VALUE
   'dssg_monitor.collectors.temperature.DS18B20TemperatureCollector':
     names: ["aircon"]
+```
 
 
 ## Launching collector
